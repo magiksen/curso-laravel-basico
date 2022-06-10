@@ -27,6 +27,9 @@
                         <th scope="row">{{ $i++ }}</th>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
+                        <!-- Para Eloquetn ORM -->
+                        {{-- $user->created_at->diffForHumans() --}}
+                        <!-- Para Query Builder -->
                         <td>{{ Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
                     </tr>
                     @endforeach

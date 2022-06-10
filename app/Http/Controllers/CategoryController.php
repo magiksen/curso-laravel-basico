@@ -13,10 +13,11 @@ class CategoryController extends Controller
     public function AllCat() {
         /* ORM */
         //$categories = Category::all();
-        //$categories = Category::latest()->get(); //Para ordenar el ultimo insert de primero
+        // get() se usa para traer todo los datos sin paginacion
+        //$categories = Category::latest()->paginate(5); //Para ordenar el ultimo insert de primero
 
         /* Query Builder*/
-        $categories = DB::table('categories')->latest()->get();
+        $categories = DB::table('categories')->latest()->paginate(5);
 
         return view('admin.category.index', compact('categories'));
     }
