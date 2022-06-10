@@ -11,8 +11,13 @@ use Illuminate\Support\Facades\DB;
 class CategoryController extends Controller
 {
     public function AllCat() {
+        /* ORM */
         //$categories = Category::all();
-        $categories = Category::latest()->get();
+        //$categories = Category::latest()->get(); //Para ordenar el ultimo insert de primero
+
+        /* Query Builder*/
+        $categories = DB::table('categories')->latest()->get();
+
         return view('admin.category.index', compact('categories'));
     }
 
@@ -26,7 +31,7 @@ class CategoryController extends Controller
             'category_name.max' => 'Category less than 255Chars',
         ]);
 
-        // ORM #1
+        /* ORM #1 */
         Category::insert([
             'category_name' => $request->category_name,
             'user_id' => Auth::user()->id,
@@ -34,13 +39,13 @@ class CategoryController extends Controller
 
         ]);
 
-        //ORM #2 esta es al de la documentacion official 9
+        /* ORM #2 esta es al de la documentacion official 9 */
         // $category = new Category;
         // $category->category_name = $request->category_name;
         // $category->user_id = Auth::user()->id;
         // $category->save();
 
-        // //Query Builder
+        /* Query Builder */
         // $data = array();
         // $data['category_name'] = $request->category_name;
         // $data['user_id'] = Auth::user()->id;
