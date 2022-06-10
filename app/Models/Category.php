@@ -16,7 +16,7 @@ class Category extends Model
     ];
 
     /* Solo cuando se usa Eloquent se usa este JOIN */
-    // public function user() {
-    //     return $this->hasOne(User::class, 'id', 'user_id');
-    // }
+    public function user() {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }
