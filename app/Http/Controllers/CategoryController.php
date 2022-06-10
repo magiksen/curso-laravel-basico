@@ -14,10 +14,14 @@ class CategoryController extends Controller
         /* ORM */
         //$categories = Category::all();
         // get() se usa para traer todo los datos sin paginacion
-        $categories = Category::latest()->paginate(5); //Para ordenar el ultimo insert de primero
+        //$categories = Category::latest()->paginate(5); //Para ordenar el ultimo insert de primero
 
         /* Query Builder*/
         //$categories = DB::table('categories')->latest()->paginate(5);
+        $categories = DB::table('categories')
+        ->join('users', 'categories.user_id', 'users.id')
+        ->select('categories.*', 'users.name')
+        ->latest()->paginate(5);
 
         return view('admin.category.index', compact('categories'));
     }
