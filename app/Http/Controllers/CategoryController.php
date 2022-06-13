@@ -14,7 +14,10 @@ class CategoryController extends Controller
         /* ORM */
         //$categories = Category::all();
         // get() se usa para traer todo los datos sin paginacion
-        $categories = Category::latest()->paginate(5); //Para ordenar el ultimo insert de primero
+        //Para ordenar el ultimo insert de primero
+        $categories = Category::latest()->paginate(5);
+        // Traer los item en la papelera
+        $trashCat = Category::onlyTrashed()->latest()->paginate(3);
 
         /* Query Builder*/
         //$categories = DB::table('categories')->latest()->paginate(5);
@@ -23,7 +26,7 @@ class CategoryController extends Controller
         // ->select('categories.*', 'users.name')
         // ->latest()->paginate(5);
 
-        return view('admin.category.index', compact('categories'));
+        return view('admin.category.index', compact('categories', 'trashCat'));
     }
 
     public function AddCat(Request $request) {
@@ -84,5 +87,11 @@ class CategoryController extends Controller
         DB::table('categories')->where('id', $id)->update($data);
 
         return Redirect()->route('all.category')->with('success', 'Category updated successfull');
+    }
+
+    public function SoftDelete($id) {
+        $delete = Category::find($id)->delete();
+
+        return Redirect()->back()->with('success', 'Category soft deleted successfull');
     }
 }
