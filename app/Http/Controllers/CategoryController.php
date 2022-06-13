@@ -15,9 +15,13 @@ class CategoryController extends Controller
         //$categories = Category::all();
         // get() se usa para traer todo los datos sin paginacion
         //Para ordenar el ultimo insert de primero
-        $categories = Category::latest()->paginate(5);
+        $categories = Category::latest()->paginate(
+            $perPage = 5, $columns = ['*'], $pageName = 'categories'
+        );
         // Traer los item en la papelera
-        $trashCat = Category::onlyTrashed()->latest()->paginate(3);
+        $trashCat = Category::onlyTrashed()->latest()->paginate(
+            $perPage = 3, $columns = ['*'], $pageName = 'trashCat'
+        );
 
         /* Query Builder*/
         //$categories = DB::table('categories')->latest()->paginate(5);
@@ -93,5 +97,17 @@ class CategoryController extends Controller
         $delete = Category::find($id)->delete();
 
         return Redirect()->back()->with('success', 'Category soft deleted successfull');
+    }
+
+    public function Restore($id) {
+        $restore = Category::withTrashed()->find($id)->restore();
+
+        return Redirect()->back()->with('success', 'Category restored successfull');
+    }
+
+    public function Pdelete($id) {
+        $pdelete = Category::onlyTrashed()->find($id)->forceDelete();
+
+        return Redirect()->back()->with('success', 'Category permanently deleted successfull');
     }
 }

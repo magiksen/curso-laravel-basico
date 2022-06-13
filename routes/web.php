@@ -38,6 +38,10 @@ Route::post('/category/update/{id}', [CategoryController::class, 'Update']);
 
 Route::get('/softdelete/category/{id}', [CategoryController::class, 'SoftDelete']);
 
+Route::get('/category/restore/{id}', [CategoryController::class, 'Restore']);
+
+Route::get('/pdelete/category/{id}', [CategoryController::class, 'Pdelete']);
+
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {Route::get('/dashboard', function () {
         /* Eloquent ORM */
