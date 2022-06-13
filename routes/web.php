@@ -46,6 +46,8 @@ Route::get('/pdelete/category/{id}', [CategoryController::class, 'Pdelete']);
 // Brand Controller
 Route::get('/brand/all', [BrandController::class, 'AllBrand'])->name('all.brand');
 
+Route::post('/brand/add', [BrandController::class, 'StoreBrand'])->name('store.brand');
+
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {Route::get('/dashboard', function () {
         /* Eloquent ORM */
         // $users = User::all();
