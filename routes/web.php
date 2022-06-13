@@ -5,6 +5,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,8 @@ Route::get('/category/restore/{id}', [CategoryController::class, 'Restore']);
 
 Route::get('/pdelete/category/{id}', [CategoryController::class, 'Pdelete']);
 
+// Brand Controller
+Route::get('/brand/all', [BrandController::class, 'AllBrand'])->name('all.brand');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {Route::get('/dashboard', function () {
         /* Eloquent ORM */
